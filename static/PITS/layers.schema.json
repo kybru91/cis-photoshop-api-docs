@@ -28,8 +28,10 @@
           "$ref": "bounds.schema.json#/definitions/bounds"
         },
         "input": {
-          "$ref": "file_input.schema.json#/definitions/input_object",
-          "description": "An object describing the input file to add or replace for a Pixel or Embedded Smart Object layer. Supported image types are PNG or JPEG."
+          "type": "object",
+          "minProperties": 1,
+          "description": "An object describing the input file to add or replace for a Pixel or Embedded Smart Object layer. Supported image types are PNG or JPEG.",
+          "$ref": "file_input.schema.json#/definitions/input_object"
         },
         "locked": {
           "$ref": "#/definitions/locked"
