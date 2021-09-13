@@ -4,6 +4,12 @@
   "title": "a file output obect",
   "description": "Represents the collective fields needed to indicate an output file, destination and format",
   "definitions": {
+    "href": {
+      "description": "Either a presignedGETURL OR a Creative Cloud assets path for storage='adobe'.",
+      "type": "string",
+      "minLength": 1,
+      "example": "presignedURL"
+    },
     "storage": {
       "description": "Asset stored on an external service (like AWS S3, Azure, Dropbox) or Adobe's cloud.",
       "type": "string",
@@ -15,12 +21,6 @@
         "cclib"
       ],
       "default": "external"
-    },
-    "href": {
-      "description": "Either a presignedGETURL OR a Creative Cloud assets path for storage='adobe'.",
-      "type": "string",
-      "minLength": 1,
-      "example": "presignedURL"
     },
     "width": {
       "description": "size, in pixels, of the renditions. Width of 0 generates a full size rendition. Height is not neccessary as the rendition generate will automatically maintain the aspect ratio. Only required for image renditions",
@@ -53,9 +53,9 @@
     "quality": {
       "description": "desired JPEG image quality, integers range from 1 to 7",
       "type": "number",
-      "default": 7,
       "minimum": 1,
-      "maximum": 7
+      "maximum": 7,
+      "default": 7
     },
     "overwrite": {
       "description": "if the output file already exists should it be overwritten. Will eventually support eTags",
@@ -66,8 +66,8 @@
       "description": "If the renditions needs to be of Canvas size. True, trims the renditions to Canvas size, while false makes the renditions to Layer Size",
       "type": "boolean",
       "enum": [
-        false,
-        true
+        true,
+        false
       ],
       "default": false
     },
