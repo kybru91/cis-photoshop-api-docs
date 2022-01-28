@@ -77,8 +77,8 @@
           "properties": {
             "version": {
               "type":"string",
-              "enum":["2.0","3.0"],
-              "default": "2.0",
+              "enum":["2.5","4"],
+              "default": "2.5",
               "description": "Version of the service"
             }
           }
