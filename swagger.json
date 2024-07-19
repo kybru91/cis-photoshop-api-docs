@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.1",
   "info": {
     "title": "Photoshop API documentation",
     "description": "API Documentation",
@@ -7,23 +7,18 @@
   },
   "servers": [
     {
-      "url": "https://image.adobe.io/"
+      "url": "https://image.adobe.io"
     }
   ],
   "tags": [
     {
-      "name": "Photoshop",
-      "description": "APIs powered by Photoshop"
+      "name": "Photoshop"
     },
     {
-      "name": "Lightroom",
-      "description": "APIs powered by Lightroom"
-    },
-    {
-      "name": "Sensei",
-      "description": "APIs powered by Sensei"
+      "name": "Lightroom"
     }
   ],
+  "security": [],
   "paths": {
     "/lrService/autoStraighten": {
       "post": {
@@ -31,12 +26,12 @@
           "Lightroom"
         ],
         "summary": "Auto straighten an image",
-        "description": "Initiates an asynchronous job to auto straighten an image. \\\nTo get status of this job, call [Status API](./#operation/acrstatus).",
+        "description": "Initiates an asynchronous job to auto straighten an image. \\\nTo get status of this job, call [Status API](./#operation/acrstatus).\\\n To know more about this feature refer [AutoStraighten](../features/#autoStraighten)",
         "operationId": "autoStraighten",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -170,12 +165,12 @@
           "Lightroom"
         ],
         "summary": "Auto tone an image",
-        "description": "Initiates an asynchronous job to auto tone an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).",
+        "description": "Initiates an asynchronous job to auto tone an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).\\\n To know more about this feature refer [AutoTone](../features/#autotone)",
         "operationId": "autoTone",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -308,13 +303,13 @@
         "tags": [
           "Lightroom"
         ],
-        "summary": "Apply edits on an image.",
-        "description": "Initiates an asynchronous job to apply a set of edit parameters on an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).",
+        "summary": "Apply edits on an image",
+        "description": "Initiates an asynchronous job to apply a set of edit parameters on an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).\\\n To know more about this feature refer [Edit](../features/#edit)",
         "operationId": "edit",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -448,12 +443,12 @@
           "Lightroom"
         ],
         "summary": "Apply a presets on an image",
-        "description": "Initiates an asynchronous job to apply a preset on an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).",
+        "description": "Initiates an asynchronous job to apply a preset on an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).\\\n To know more about this feature refer [Presets](../features/#presets)",
         "operationId": "presets",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -586,13 +581,13 @@
         "tags": [
           "Lightroom"
         ],
-        "summary": "Apply xmp on an image.",
-        "description": "Initiates an asynchronous job to apply an XMP setting to an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).",
+        "summary": "Apply xmp on an image",
+        "description": "Initiates an asynchronous job to apply an XMP setting to an image.\nTo get status of this job, call [Status API](./#operation/acrstatus).\\\n To know more about this feature refer [XMP](../features/#xmp)",
         "operationId": "xmp",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -725,13 +720,13 @@
         "tags": [
           "Lightroom"
         ],
-        "summary": "Get the status of a job.",
-        "description": "Returns the status of a job. Please expand `202 Successful Operation` under `Responses` to know details of the Status Returned .",
+        "summary": "Get the status of a job",
+        "description": "Returns the status of a job. Please expand `200 Successful operation` under `Responses` to know details of the status returned.",
         "operationId": "acrstatus",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -776,7 +771,7 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -792,15 +787,16 @@
     "/sensei/cutout": {
       "post": {
         "tags": [
-          "Sensei"
+          "Photoshop"
         ],
-        "summary": "Create Image Cutout",
-        "description": " Generates a PNG file in 4 channel RGBA format with the generated cutout mask \\\n applied to the input image generate a PNG file in 4 channel RGBA format with the generated cutout \\\n mask applied to the input image.\nTo get status of this job, call [Status API](./#operation/icstatus).",
+        "summary": "Remove Background",
+        "description": " Generates a PNG file in 4 channel RGBA format with the cutout operation
+applied to the input image \\\n Generates a PNG file in 3 channel RGB format with the mask operation applied to the input image.\\\n To get status of this job, call [Status API](./#operation/icstatus).\\\n To know more about this feature refer [Remove Background](../features/#remove-background)",
         "operationId": "cutout",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -931,15 +927,15 @@
     "/sensei/mask": {
       "post": {
         "tags": [
-          "Sensei"
+          "Photoshop"
         ],
         "summary": "Create Mask",
-        "description": " Generates a mask PNG.\nTo get status of this job, call [Status API](./#operation/icstatus).",
+        "description": " Generates a mask PNG.\nTo get status of this job, call [Status API](./#operation/icstatus).\\\n To know more about this feature refer [Image Mask](../features/#image-mask)",
         "operationId": "mask",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1070,15 +1066,15 @@
     "/sensei/status/{jobId}": {
       "get": {
         "tags": [
-          "Sensei"
+          "Photoshop"
         ],
-        "summary": "Get the status of a job.",
-        "description": "Returns the status of a job. Please expand `202 Successful Operation` under `Responses` to know details of the Status Returned .",
+        "summary": "Get the status of a job for Remove Background and Create Mask",
+        "description": "Returns the status of a job. Please expand `200 Successful operation` under `Responses` to know details of the status returned.",
         "operationId": "icstatus",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1123,7 +1119,7 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
@@ -1142,12 +1138,12 @@
           "Photoshop"
         ],
         "summary": "Create renditions",
-        "description": " Create renditions.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Create renditions.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [Rendering Conversions](../features/#rendering--conversions)",
         "operationId": "renditionCreate",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1283,18 +1279,290 @@
         ]
       }
     },
+    "/pie/psdService/actionJSON": {
+      "post": {
+        "tags": [
+          "Photoshop"
+        ],
+        "summary": "Execute actionJSON",
+        "description": " Playback photoshop actions in actionJSON format.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [Rendering Conversions](../features/#rendering--conversions)",
+        "operationId": "actionJSON",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "description": "API key/client id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "description": "application/json",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-gw-ims-org-id",
+            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./PITS/post_action_json.schema.json"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./PITS/api_response_success_schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_400_error_schema.json"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Trial Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_402_error_schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_403_error_schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_404_error_schema.json"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "File Overwrite Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_409_error_schema.json"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Asset Link Invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_410_error_schema.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "source": "curl --request POST \\\n  --url https://image.adobe.io/pie/psdService/actionJSON \\\n  --header 'Authorization: Bearer $token' \\\n  --header 'content-type: application/json' \\\n  --header 'x-api-key: $x-api-key' \\\n  --data '{\"inputs\": [{\"href\": \"string\",\"storage\": \"external\"}],\"options\": {\"actionJSON\": [{\"_obj\": \"crop\",\"angle\": {\"_unit\": \"angleUnit\",\"_value\": 0.0},\\\n\"constrainProportions\": false,\"cropAspectRatioModeKey\": {\"_enum\": \"cropAspectRatioModeClass\",\"_value\": \"pureAspectRatio\"},\"delete\": true,\"to\": {\"_obj\": \"rectangle\",\"bottom\": {\"_unit\": \"pixelsUnit\",\"_value\": 469.0},\"left\": {\"_unit\": \"pixelsUnit\",\"_value\": 0.0},\"right\": {\"_unit\": \"pixelsUnit\",\"_value\": 750.0},\"top\": {\"_unit\": \"pixelsUnit\",\"_value\": 0.0}}},{\"_obj\": \"crop\",\"angle\": {\"_unit\": \"angleUnit\",\"_value\": 0.0},\"constrainProportions\": false,\"cropAspectRatioModeKey\": {\"_enum\": \"cropAspectRatioModeClass\",\"_value\": \"pureAspectRatio\"},\"delete\": true,\"to\": {\"_obj\": \"rectangle\",\"bottom\": {\"_unit\": \"pixelsUnit\",\"_value\": 368.421875},\"left\": {\"_unit\": \"pixelsUnit\",\"_value\": 108.515625},\"right\": {\"_unit\": \"pixelsUnit\",\"_value\": 603.375},\"top\": {\"_unit\": \"pixelsUnit\",\"_value\": 0.0}}},{\"_obj\": \"make\",\"_target\": [{\"_ref\": \"contentLayer\"}],\"using\": {\"_obj\": \"contentLayer\",\"type\": {\"_obj\": \"gradientLayer\",\"angle\": {\"_unit\": \"angleUnit\",\"_value\": 90.0},\"gradient\": {\"_obj\": \"gradientClassEvent\",\"colors\": [{\"_obj\": \"colorStop\",\"color\": {\"_obj\": \"RGBColor\",\"blue\": 0.0,\"grain\": 0.0,\"red\": 0.0},\"location\": 0,\"midpoint\": 50,\"type\": {\"_enum\": \"colorStopType\",\"_value\": \"userStop\"}}, {\"_obj\": \"colorStop\",\"color\": {\"_obj\": \"RGBColor\",\"blue\": 0.0,\"grain\": 0.0,\"red\": 0.0},\"location\": 4096,\"midpoint\": 50,\"type\": {\"_enum\": \"colorStopType\",\"_value\": \"userStop\"}}],\"gradientForm\": {\"_enum\": \"gradientForm\",\"_value\": \"customStops\"},\"interfaceIconFrameDimmed\": 4096.0,\"name\": \"Color to Transparent\",\"transparency\": [{\"_obj\": \"transferSpec\",\"location\": 0,\"midpoint\": 50,\"opacity\": {\"_unit\": \"percentUnit\",\"_value\": 100.0}}, {\"_obj\": \"transferSpec\",\"location\": 4096,\"midpoint\": 50,\"opacity\": {\"_unit\": \"percentUnit\",\"_value\": 0.0}}]},\"gradientsInterpolationMethod\":{\"_enum\": \"gradientInterpolationMethodType\",\"_value\": \"perceptual\"},\"type\": {\"_enum\": \"gradientType\",\"_value\": \"linear\"}}}}]},\"outputs\": [{\"storage\": \"external\",\"type\": \"image/jpeg\",t\"overwrite\": true,\"href\": \"string\"}]}'"
+          },
+          {
+            "lang": "multiple_input_example",
+            "source": "curl --request POST \\\n  --url https://image.adobe.io/pie/psdService/actionJSON \\\n  --header 'Authorization: Bearer $token' \\\n  --header 'content-type: application/json' \\\n  --header 'x-api-key: $x-api-key' \\\n  --data '{\"inputs\": [{\"href\": \"string\",\"storage\": \"external\"}],\"options\": {\"additionalImages\": [{\"href\": \"string\",\"storage\": \"external\"}],\"actionJSON\": [{\"ID\": 3,\"_obj\": \"placeEvent\",\"freeTransformCenterState\": {\"_enum\": \"quadCenterState\",\"_value\": \"QCSAverage\"},\"null\": {\"_kind\": \"local\",\"_path\": \"PEGASUS_ACTION_JSON_OPTIONS_ADDITIONAL_IMAGES_0\"},\"offset\": {\"_obj\": \"offset\",\"horizontal\": {\"_unit\": \"pixelsUnit\",\"_value\": 0},\"vertical\": {\"_unit\": \"pixelsUnit\",\"_value\": 0}}},{\"_obj\": \"autoCutout\",\"sampleAllLayers\": false},{\"_obj\":\"make\",\"at\": {\"_enum\":\"channel\",\"_ref\": \"channel\",  \"_value\": \"mask\"},\"new\": {  \"_class\": \"channel\"},\"using\": {  \"_enum\": \"userMaskEnabled\",\"_value\":\"revealSelection\"}},{\"_obj\": \"set\",\"_target\": [{\"_property\": \"selection\",\"_ref\": \"channel\"  }],\"to\": {  \"_enum\": \"ordinal\",\"_value\": \"allEnum\"}},{\"_obj\": \"align\",\"_target\": [{\"_enum\": \"ordinal\",\"_ref\": \"layer\"  }],\"alignToCanvas\": false,\"using\": {\"_enum\": \"alignDistributeSelector\",  \"_value\": \"ADSBottoms\"}},{\"_obj\": \"align\",\"_target\": [{\"_enum\": \"ordinal\",\"_ref\": \"layer\"  }],\"alignToCanvas\": false,\"using\": {\"_enum\": \"alignDistributeSelector\",\"_value\": \"ADSRights\"}},{\"_obj\": \"set\",\"_target\": [  {\"_property\": \"selection\",\"_ref\": \"channel\"}],\"to\": {\"_enum\": \"ordinal\",\"_value\": \"none\"}}]},\"outputs\":[{\"type\": \"image/jpeg\",\"href\": \"string\",\"storage\": \"external\"}]}'"
+          }
+        ]
+      }
+    },
+    "/pie/psdService/actionJsonCreate": {
+      "post": {
+        "tags": [
+          "Photoshop"
+        ],
+        "summary": "Create actionJSON",
+        "description": " Converts an atn file to actionJSON.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [Rendering Conversions](../features/#rendering--conversions)",
+        "operationId": "actionJsonCreate",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "description": "API key/client id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "description": "application/json",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-gw-ims-org-id",
+            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./PITS/post_action_json_create.schema.json"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./PITS/api_response_success_schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_400_error_schema.json"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Trial Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_402_error_schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_403_error_schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_404_error_schema.json"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Asset Link Invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_410_error_schema.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "source": "curl --request POST \\\n --url https://image.adobe.io/pie/psdService/actioJsonCreate \\\n --header 'Authorization: Bearer $token' \\\n --header 'content-type: application/json' \\\n --header 'x-api-key: $x-api-key' \\\n --data '{\"inputs\": [{\"storage\": \"external\",\"href\": \"string\"}] \\\n,\"options\": {\"actions\": [{\"actionName\": \"string\"}]}}'"
+          }
+        ]
+      }
+    },
     "/pie/psdService/smartObject": {
       "post": {
         "tags": [
           "Photoshop"
         ],
         "summary": "Replace Smart Object",
-        "description": " Edits a PSD for replacing embedded smart object and then generate renditions and/or save a new psd.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Edits a PSD for replacing embedded smart object and then generate renditions and/or save a new psd.\nTo get status of this job, call [Status API](./#operation/pitsstatus).\\\n To know more about this feature refer [SmartObject](../features/#smartobject)",
         "operationId": "smartObject",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1428,12 +1696,12 @@
           "Photoshop"
         ],
         "summary": "Execute Photoshop Actions",
-        "description": " Executes Photoshop Actions on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Executes Photoshop Actions on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [Photoshop Actions](../features/#photoshop-actions)",
         "operationId": "photoshopActions",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1567,12 +1835,12 @@
           "Photoshop"
         ],
         "summary": "Execute Product Crop",
-        "description": " Executes Product Crop on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Executes Product Crop on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus).\\\n To know more about this feature refer [ProductCrop](../features/#productcrop)",
         "operationId": "productCrop",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1706,12 +1974,12 @@
           "Photoshop"
         ],
         "summary": "Execute Depth Blur",
-        "description": " Executes Depth Blur on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Executes Depth Blur on a given image.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [DepthBlur](../features/#depthblur)",
         "operationId": "depthBlur",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1845,12 +2113,12 @@
           "Photoshop"
         ],
         "summary": "Edit text layers",
-        "description": " Edit one or more text layers.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Edit one or more text layers.\nTo get status of this job, call [Status API](./#operation/pitsstatus). \\\n To know more about this feature refer [Text](../features/#text)",
         "operationId": "text",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -1984,12 +2252,12 @@
           "Photoshop"
         ],
         "summary": "Apply psd edits",
-        "description": " Apply psd edits.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Apply psd edits.\nTo get status of this job, call [Status API](./#operation/pitsstatus).\\\n To know more about this feature refer [Document Level Edits](../features/#document-level-edits) and [Layer Level Edits](../features/#layer-level-edits)",
         "operationId": "documentOperations",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -2117,194 +2385,6 @@
         ]
       }
     },
-    "/pie/psdService/documentManifest": {
-      "post": {
-        "tags": [
-          "Photoshop"
-        ],
-        "summary": "Get layer info",
-        "description": " Get layer informations of a PSD document.\nTo get status of this job, call [Manifest Status API](./#operation/documentManifestStatus).",
-        "operationId": "documentManifest",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "description": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "description": "API key/client id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Content-Type",
-            "description": "application/json",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-gw-ims-org-id",
-            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "./PITS/post_document_manifest.schema.json"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "202": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./PITS/api_response_success_schema.json"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./api_response_400_error_schema.json"
-                }
-              }
-            }
-          },
-          "402": {
-            "description": "Trial Limit Exceeded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./api_response_402_error_schema.json"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./api_response_403_error_schema.json"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./api_response_404_error_schema.json"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "x-codeSamples": [
-          {
-            "lang": "shell",
-            "source": "curl --request POST \\\n  --url https://image.adobe.io/pie/psdService/documentManifest \\\n  --header 'Authorization: Bearer $token' \\\n  --header 'content-type: application/json' \\\n  --header 'x-api-key: $x-api-key' \\\n  --data '{\"inputs\":[{\"href\":\"get_presigned_url\",\"storage\":\"external\"}],\\\n \"options\":{\"thumbnails\":{\"type\": \"images/png\"}}}'"
-          }
-        ]
-      }
-    },
-    "/pie/psdService/status/{jobId_documentmanifest}": {
-      "get": {
-        "tags": [
-          "Photoshop"
-        ],
-        "summary": "Get the status of documentManifest",
-        "description": "Returns the status of documentManifest API. Please expand `202 Successful Operation` under `Responses` to know details of the Status Returned.",
-        "operationId": "documentManifestStatus",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "description": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "description": "API key/client id",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Content-Type",
-            "description": "application/json",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-gw-ims-org-id",
-            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "jobId_documentmanifest",
-            "in": "path",
-            "description": "The jobId to get status for.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "./PITS/get_manifest_status.schema.json"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/pie/psdService/documentCreate": {
       "post": {
         "tags": [
@@ -2316,7 +2396,7 @@
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -2450,12 +2530,12 @@
           "Photoshop"
         ],
         "summary": "Create an artboard",
-        "description": " Creates an artboard.\nTo get status of this job, call [Status API](./#operation/pitsstatus).",
+        "description": " Creates an artboard.\nTo get status of this job, call [Status API](./#operation/pitsstatus).\\\n To know more about this feature refer [Artboards](../features/#artboards)",
         "operationId": "artboardCreate",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -2588,13 +2668,18 @@
         "tags": [
           "Photoshop"
         ],
-        "summary": "Get the status of a job.",
-        "description": "Returns the status of a job. Please expand `202 Successful Operation` under `Responses` to know details of the Status Returned.",
+        "summary": "Get the status of a job",
+        "description": "Returns the status of a job. Please expand `200 Successful operation` under
+        `Responses` to know details of the status returned. This API is used for returning the status of
+        a job for the apis [Create Renditions](./#operation/renditionCreate), [Execute actionJSON](./#operation/actionJSON),
+        [Replace SmartObject](./#operation/smartObject), [Execute Photoshop Actions](./#operation/photoshopActions),
+        [Execute Product Crop](./#operation/productCrop), [Execute Depth Blur](./#operation/depthBlur), [Edit Text Layers](./#operation/text),
+        [Apply psd edits](./#operation/documentOperations), [Create a new psd](./#operation/documentCreate), [Create an artboard](./#operation/artboardCreate)",
         "operationId": "pitsstatus",
         "parameters": [
           {
             "name": "Authorization",
-            "description": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
             "in": "header",
             "required": true,
             "schema": {
@@ -2639,12 +2724,200 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "./PITS/get_status.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pie/psdService/documentManifest": {
+      "post": {
+        "tags": [
+          "Photoshop"
+        ],
+        "summary": "Get manifest",
+        "description": " Get information about the PSD document, including metadata about the file as a whole as well as detailed information about the layers included in the file.\nTo get status of this job, call [Manifest Status API](./#operation/documentManifestStatus).",
+        "operationId": "documentManifest",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "description": "API key/client id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "description": "application/json",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-gw-ims-org-id",
+            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./PITS/post_document_manifest.schema.json"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./PITS/api_response_success_schema.json"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_400_error_schema.json"
+                }
+              }
+            }
+          },
+          "402": {
+            "description": "Trial Limit Exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_402_error_schema.json"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_403_error_schema.json"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./api_response_404_error_schema.json"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "x-codeSamples": [
+          {
+            "lang": "shell",
+            "source": "curl --request POST \\\n  --url https://image.adobe.io/pie/psdService/documentManifest \\\n  --header 'Authorization: Bearer $token' \\\n  --header 'content-type: application/json' \\\n  --header 'x-api-key: $x-api-key' \\\n  --data '{\"inputs\":[{\"href\":\"get_presigned_url\",\"storage\":\"external\"}],\\\n \"options\":{\"thumbnails\":{\"type\": \"images/png\"}}}'"
+          }
+        ]
+      }
+    },
+    "/pie/psdService/status/{jobid}": {
+      "get": {
+        "tags": [
+          "Photoshop"
+        ],
+        "summary": "Get the status of a job for documentManifest",
+        "description": "Returns the status of the Get Manifest API. Please expand `200 Successful operation` under `Responses` to know details of the status returned.",
+        "operationId": "documentManifestStatus",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer: ${Authorization Token}",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "description": "API key/client id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "description": "application/json",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-gw-ims-org-id",
+            "description": "IMS organization ID. This needs to be sent only if it is desirable to receive the job status through Adobe I/O Events.",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "jobId",
+            "in": "path",
+            "description": "The jobId to get status for.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./PITS/get_manifest_status.schema.json"
                 }
               }
             }

@@ -5,13 +5,11 @@
   "description": "Represents the collective fields needed to indicate an input file",
   "definitions": {
     "href": {
-      "description": "Either a presignedGETURL OR a Creative Cloud assets path for storage='adobe'.",
       "type": "string",
       "minLength": 1,
       "example": "presignedURL"
     },
     "storage": {
-      "description": "Asset stored on an external service (like AWS S3, Azure, Dropbox) or Adobe's Creative Cloud files. If you are using presigned url for dropbox or azure, use `storage=\"dropbox\"` or `storage=\"azure\"` else it is `storage=\"external\"`",
       "type": "string",
       "enum": [
         "external",
@@ -27,7 +25,6 @@
       "type": "string"
     },
     "input_objects_max_1": {
-      "": "used when the inputs array can only contain one input object",
       "type": "array",
       "description": "An object describing an input file. Currently supported filetypes include:`jpeg`, `png`, `psd`, `tiff`",
       "maxItems": 1,
@@ -35,8 +32,16 @@
         "$ref": "#/definitions/input_object"
       }
     },
+    "input_objects_max_2": {
+      "type": "array",
+      "description": "An object describing an input file. Currently supported filetypes include:`jpeg`, `png`, `psd`, `tiff`. First input contains before image and second input contains after image",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "$ref": "#/definitions/input_object"
+      }
+    },
     "input_objects": {
-      "": "used when the inputs array can only contain N input objects",
       "type": "array",
       "description": "An array of hashes describing the input files to edit. each input object will be either 'external', 'adobe', 'azure' or 'dropbox'",
       "items": {
@@ -44,7 +49,6 @@
       }
     },
     "input_objects_action": {
-      "": "used when the inputs array can only contain N input objects",
       "type": "array",
       "description": "An array of hashes describing the input action files to edit. each input object will be either 'external', 'adobe', 'azure' or 'dropbox'",
       "items": {
@@ -52,7 +56,6 @@
       }
     },
     "artboard_objects": {
-      "": "used when the options array for artboard can only contain N input objects",
       "type": "array",
       "minLength": 1,
       "description": "An array of hashes describing the input files to edit. each input object will be either 'external', 'adobe', 'azure' or 'dropbox'",
@@ -79,15 +82,17 @@
       "if": {
         "properties": {
           "storage": {
-            "pattern": "(^azure|external|dropbox$)"
+            "pattern": "(^azure|external|dropbox$)",
+            "description": "Asset stored on an external service (like AWS S3, Azure, Dropbox). If you are using presigned url for dropbox or azure, use `storage=\"dropbox\"` or `storage=\"azure\"` else it is `storage=\"external\"`"
           }
         }
       },
       "then": {
         "properties": {
           "href": {
-            "format": "uri",
-            "description": "A URI representing the path to the input file"
+            "type": "string",
+            "pattern": "^https://",
+            "description": "Any public url or a presignedURL for the asset input"
           }
         }
       },
@@ -104,14 +109,20 @@
             "href": {
               "pattern": "^/?(api)/.+",
               "description": "A string representing the path to the input CC Libraries file"
+            },
+            "storage": {
+              "description" : "Asset stored on Adobe's cclib `cclib`. </br> Not available for the integrations created with JWT authentication or Service Principle."
             }
           }
         },
         "else" : {
           "properties": {
             "href": {
-              "pattern": "^/?(files|temp|cloud-content|assets)/.+",
-              "description": "A string representing the path to the input CC Storage file"
+              "pattern": "^/?(temp|cloud-content|assets|pubs)/.+",
+              "description": "A string representing the path to the input CC Storage file. </br> Not available for the integrations created with JWT authentication or Service Principle."
+            },
+            "storage": {
+              "description" : "Asset stored on Adobe's cloud `adobe`. </br> Not available for the integrations created with JWT authentication or Service Principle."
             }
           }
         }
@@ -147,6 +158,7 @@
         "properties": {
           "href": {
             "format": "uri",
+            "pattern": "^https://",
             "description": "A URI representing the path to the input action file"
           }
         }
@@ -154,7 +166,7 @@
       "else": {
         "properties": {
           "href": {
-            "pattern": "^/?(files|temp|cloud-content|assets)/.+",
+            "pattern": "^/?(temp|cloud-content|assets|pubs)/.+",
             "description": "A string representing the path to the input CC file"
           }
         }

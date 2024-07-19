@@ -17,9 +17,13 @@
       "type": "object",
       "required": ["actionJSON"],
       "properties": {
-        "actions": {
-          "$ref": "file_input.schema.json#/definitions/input_objects_action",
-          "description": "An array of action objects you wish photoshopActions to execute. We currently only support one input object."
+        "actionJSON": {
+          "type": "array",
+          "description": "An array of photoshop actions created as actionJSON to execute.",
+          "minItems": 1,
+          "items": {
+            "description": "Each item contains an object with photoshop action"
+          }
         },
         "fonts": {
           "$ref": "file_input.schema.json#/definitions/input_objects",
@@ -40,9 +44,6 @@
               },
               "href": {
                 "$ref": "file_input.schema.json#/definitions/href"
-              },
-              "actionName" :{
-                "$ref": "file_input.schema.json#/definitions/actionName"
               }
             },
             "if": {
@@ -56,6 +57,7 @@
               "properties": {
                 "href": {
                   "format": "uri",
+                  "pattern": "^https://",
                   "description": "A URI representing the path to the input file"
                 }
               }
@@ -79,7 +81,7 @@
               "else": {
                 "properties": {
                   "href": {
-                    "pattern": "^/?(files|temp|cloud-content|assets)/.+",
+                    "pattern": "^/?(temp|cloud-content|assets|pubs)/.+",
                     "description": "A string representing the path to the input CC Storage file"
                   }
                 }
@@ -102,9 +104,6 @@
               },
               "href": {
                 "$ref": "file_input.schema.json#/definitions/href"
-              },
-              "actionName" :{
-                "$ref": "file_input.schema.json#/definitions/actionName"
               }
             },
             "if": {
@@ -118,6 +117,7 @@
               "properties": {
                 "href": {
                   "format": "uri",
+                  "pattern": "^https://",
                   "description": "A URI representing the path to the input file"
                 }
               }
@@ -141,7 +141,67 @@
               "else": {
                 "properties": {
                   "href": {
-                    "pattern": "^/?(files|temp|cloud-content|assets)/.+",
+                    "pattern": "^/?(temp|cloud-content|assets|pubs)/.+",
+                    "description": "A string representing the path to the input CC Storage file"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "additionalImages": {
+          "type": "array",
+          "description": "Image objects which tells the API where to download additional images that is needed for your action.  Currently, the only allowed placeholder within your is ACTION_JSON_OPTIONS_ADDITIONAL_IMAGES_X where X is the index of the additionalImages array",
+          "minItems": 1,
+          "items": {
+            "required": [
+              "href",
+              "storage"
+            ],
+            "properties": {
+              "storage": {
+                "$ref": "file_input.schema.json#/definitions/storage"
+              },
+              "href": {
+                "$ref": "file_input.schema.json#/definitions/href"
+              }
+            },
+            "if": {
+              "properties": {
+                "storage": {
+                  "pattern": "(^azure|external|dropbox$)"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "href": {
+                  "format": "uri",
+                  "pattern": "^https://",
+                  "description": "A URI representing the path to the input file"
+                }
+              }
+            },
+            "else": {
+              "if": {
+                "properties": {
+                  "storage": {
+                    "pattern": "(^cclib$)"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "href": {
+                    "pattern": "^/?(api)/.+",
+                    "description": "A string representing the path to the input CC Libraries file"
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "href": {
+                    "pattern": "^/?(temp|cloud-content|assets|pubs)/.+",
                     "description": "A string representing the path to the input CC Storage file"
                   }
                 }
